@@ -99,7 +99,7 @@
 
   <script>
     function moveToNext(event, nextId) {
-      if (event.key === 'Enter') {
+      if (event.key === 'Enter' || event.key === 'Done' || event.key === 'Go'|| event.key === 'OK') {
         event.preventDefault();
         const nextElement = document.getElementById(nextId);
         if (nextElement) {
