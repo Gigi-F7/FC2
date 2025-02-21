@@ -99,19 +99,13 @@
 
   <script>
     function moveToNext(event, nextId) {
-      if (event.key === 'Enter') {
+      if (event.key === 'Enter' || event.key === 'Done') {
         event.preventDefault();
-        document.getElementById(nextId).focus();
-      }
-    }
-
-    function handleBlur(nextId) {
-      setTimeout(() => {
-        const activeElement = document.activeElement;
-        if (activeElement.tagName !== 'INPUT' && activeElement.tagName !== 'TEXTAREA') {
-          document.getElementById(nextId).focus();
+        const nextElement = document.getElementById(nextId);
+        if (nextElement) {
+          nextElement.focus();
         }
-      }, 100);
+      }
     }
 
     function parseInput(value) {
