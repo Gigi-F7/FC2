@@ -99,7 +99,7 @@
 
   <script>
     function moveToNext(event, nextId) {
-      if (event.key === 'Enter') {
+      if (event.key === 'Enter' || event.key === 'Submit') {
         event.preventDefault();
         const nextElement = document.getElementById(nextId);
         if (nextElement && (nextElement.tagName === 'INPUT' || nextElement.tagName === 'BUTTON')) {
