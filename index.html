@@ -99,10 +99,10 @@
 
   <script>
     function moveToNext(event, nextId) {
-      if (event.key === 'Enter' || event.key === 'Done') {
+      if (event.key === 'Enter') {
         event.preventDefault();
         const nextElement = document.getElementById(nextId);
-        if (nextElement) {
+        if (nextElement && (nextElement.tagName === 'INPUT' || nextElement.tagName === 'BUTTON')) {
           nextElement.focus();
         }
       }
