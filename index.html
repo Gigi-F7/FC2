@@ -56,59 +56,58 @@
 </head>
 <body>
   <h1>Fuel Converter</h1>
+  
+  <h2>From lb to l</h2>
+  <label for="pounds">Quantity in pounds:</label>
+  <input type="number" id="pounds" placeholder="Enter quantity in lb" enterkeyhint="next" onkeydown="handleKey(event, 'density')">
 
-  <form onsubmit="event.preventDefault(); convert();">
-    <h2>From lb to l</h2>
-    <label for="pounds">Quantity in pounds:</label>
-    <input type="number" id="pounds" placeholder="Enter quantity in lb" onkeydown="moveToNext(event, 'density')">
+  <label for="density">Daily density (kg/L):</label>
+  <input type="text" id="density" placeholder="Enter density (e.g., 0.8 or 0,8)" enterkeyhint="done" onkeydown="handleKey(event, 'convertBtn')">
 
-    <label for="density">Daily density (kg/L):</label>
-    <input type="text" id="density" placeholder="Enter density (e.g., 0.8 or 0,8)" onkeydown="moveToNext(event, 'convertBtn')">
+  <button id="convertBtn" onclick="convert()">Convert to Liters</button>
 
-    <button id="convertBtn" type="submit">Convert to Liters</button>
-
-    <div id="result"></div>
-  </form>
+  <div id="result"></div>
 
   <hr>
 
-  <form onsubmit="event.preventDefault(); convertInverse();">
-    <h2>Liters to Pounds</h2>
-    <label for="liters">Quantity in liters:</label>
-    <input type="number" id="liters" placeholder="Enter quantity in liters" onkeydown="moveToNext(event, 'densityInverse')">
+  <h2>Liters to Pounds</h2>
+  <label for="liters">Quantity in liters:</label>
+  <input type="number" id="liters" placeholder="Enter quantity in liters" enterkeyhint="next" onkeydown="handleKey(event, 'densityInverse')">
 
-    <label for="densityInverse">Daily density (kg/L):</label>
-    <input type="text" id="densityInverse" placeholder="Enter density (e.g., 0.8 or 0,8)" onkeydown="moveToNext(event, 'convertInverseBtn')">
+  <label for="densityInverse">Daily density (kg/L):</label>
+  <input type="text" id="densityInverse" placeholder="Enter density (e.g., 0.8 or 0,8)" enterkeyhint="done" onkeydown="handleKey(event, 'convertInverseBtn')">
 
-    <button id="convertInverseBtn" type="submit">Convert to lb</button>
+  <button id="convertInverseBtn" onclick="convertInverse()">Convert to lb</button>
 
-    <div id="resultInverse"></div>
-  </form>
+  <div id="resultInverse"></div>
 
   <hr>
 
-  <form onsubmit="event.preventDefault(); calculateUplift();">
-    <h2>Uplift</h2>
-    <label for="remaining">Remaining Quantity (lb):</label>
-    <input type="number" id="remaining" placeholder="Enter remaining quantity in lb" onkeydown="moveToNext(event, 'final')">
+  <h2>Uplift</h2>
+  <label for="remaining">Remaining Quantity (lb):</label>
+  <input type="number" id="remaining" placeholder="Enter remaining quantity in lb" enterkeyhint="next" onkeydown="handleKey(event, 'final')">
 
-    <label for="final">Final Quantity (lb):</label>
-    <input type="number" id="final" placeholder="Enter final quantity in lb" onkeydown="moveToNext(event, 'densityUplift')">
+  <label for="final">Final Quantity (lb):</label>
+  <input type="number" id="final" placeholder="Enter final quantity in lb" enterkeyhint="next" onkeydown="handleKey(event, 'densityUplift')">
 
-    <label for="densityUplift">Daily density (kg/L):</label>
-    <input type="text" id="densityUplift" placeholder="Enter density (e.g., 0.8 or 0,8)" onkeydown="moveToNext(event, 'upliftBtn')">
+  <label for="densityUplift">Daily density (kg/L):</label>
+  <input type="text" id="densityUplift" placeholder="Enter density (e.g., 0.8 or 0,8)" enterkeyhint="done" onkeydown="handleKey(event, 'upliftBtn')">
 
-    <button id="upliftBtn" type="submit">Calculate Uplift in Liters</button>
+  <button id="upliftBtn" onclick="calculateUplift()">Calculate Uplift in Liters</button>
 
-    <div id="resultUplift"></div>
-  </form>
+  <div id="resultUplift"></div>
 
   <script>
-    function moveToNext(event, nextId) {
+    function handleKey(event, nextId) {
       if (event.key === 'Enter') {
         event.preventDefault();
         const nextElement = document.getElementById(nextId);
-        if (nextElement) nextElement.focus();
+        if (nextElement) {
+          nextElement.focus();
+          if (nextElement.tagName.toLowerCase() === 'button') {
+            nextElement.click();
+          }
+        }
       }
     }
 
