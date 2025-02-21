@@ -99,14 +99,17 @@
 
   <script>
     function moveToNext(event, nextId) {
-      if (event.key === 'Enter' || event.key === 'Done' || event.key === 'Go'|| event.key === 'OK') {
+      if (event.key === 'Enter') {
         event.preventDefault();
-        const nextElement = document.getElementById(nextId);
-        if (nextElement) {
-          nextElement.focus();
-        } else if (event.target.tagName === 'INPUT') {
-          event.target.blur();
-        }
+        document.getElementById(nextId).focus();
+      }
+    }
+
+    function moveToNextBlur(nextId) {
+      // Trigger on blur for mobile "OK" button
+      const nextElement = document.getElementById(nextId);
+      if (nextElement) {
+        nextElement.focus();
       }
     }
 
