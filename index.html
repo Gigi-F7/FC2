@@ -56,49 +56,51 @@
 </head>
 <body>
   <h1>Fuel Converter</h1>
-  
-  <h2>From lb to l</h2>
-  <label for="pounds">Quantity in pounds:</label>
-  <input type="number" id="pounds" placeholder="Enter quantity in lb" inputmode="decimal" onkeydown="moveToNext(event, 'density')">
 
-  <label for="density">Daily density (kg/L):</label>
-  <input type="text" id="density" placeholder="Enter density (e.g., 0.8 or 0,8)" inputmode="decimal" onkeydown="moveToNext(event, 'convertBtn')">
+  <form id="converterForm">
+    <h2>From lb to l</h2>
+    <label for="pounds">Quantity in pounds:</label>
+    <input type="number" id="pounds" placeholder="Enter quantity in lb" inputmode="decimal" onkeydown="handleEnter(event, 'density')">
 
-  <button id="convertBtn" onclick="convert()">Convert to Liters</button>
+    <label for="density">Daily density (kg/L):</label>
+    <input type="text" id="density" placeholder="Enter density (e.g., 0.8 or 0,8)" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]+" onkeydown="handleEnter(event, 'convertBtn')">
 
-  <div id="result"></div>
+    <button id="convertBtn" type="button" onclick="convert()">Convert to Liters</button>
 
-  <hr>
+    <div id="result"></div>
 
-  <h2>Liters to Pounds</h2>
-  <label for="liters">Quantity in liters:</label>
-  <input type="number" id="liters" placeholder="Enter quantity in liters" inputmode="decimal" onkeydown="moveToNext(event, 'densityInverse')">
+    <hr>
 
-  <label for="densityInverse">Daily density (kg/L):</label>
-  <input type="text" id="densityInverse" placeholder="Enter density (e.g., 0.8 or 0,8)" inputmode="decimal" onkeydown="moveToNext(event, 'convertInverseBtn')">
+    <h2>Liters to Pounds</h2>
+    <label for="liters">Quantity in liters:</label>
+    <input type="number" id="liters" placeholder="Enter quantity in liters" inputmode="decimal" onkeydown="handleEnter(event, 'densityInverse')">
 
-  <button id="convertInverseBtn" onclick="convertInverse()">Convert to lb</button>
+    <label for="densityInverse">Daily density (kg/L):</label>
+    <input type="text" id="densityInverse" placeholder="Enter density (e.g., 0.8 or 0,8)" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]+" onkeydown="handleEnter(event, 'convertInverseBtn')">
 
-  <div id="resultInverse"></div>
+    <button id="convertInverseBtn" type="button" onclick="convertInverse()">Convert to lb</button>
 
-  <hr>
+    <div id="resultInverse"></div>
 
-  <h2>Uplift</h2>
-  <label for="remaining">Remaining Quantity (lb):</label>
-  <input type="number" id="remaining" placeholder="Enter remaining quantity in lb" inputmode="decimal" onkeydown="moveToNext(event, 'final')">
+    <hr>
 
-  <label for="final">Final Quantity (lb):</label>
-  <input type="number" id="final" placeholder="Enter final quantity in lb" inputmode="decimal" onkeydown="moveToNext(event, 'densityUplift')">
+    <h2>Uplift</h2>
+    <label for="remaining">Remaining Quantity (lb):</label>
+    <input type="number" id="remaining" placeholder="Enter remaining quantity in lb" inputmode="decimal" onkeydown="handleEnter(event, 'final')">
 
-  <label for="densityUplift">Daily density (kg/L):</label>
-  <input type="text" id="densityUplift" placeholder="Enter density (e.g., 0.8 or 0,8)" inputmode="decimal" onkeydown="moveToNext(event, 'upliftBtn')">
+    <label for="final">Final Quantity (lb):</label>
+    <input type="number" id="final" placeholder="Enter final quantity in lb" inputmode="decimal" onkeydown="handleEnter(event, 'densityUplift')">
 
-  <button id="upliftBtn" onclick="calculateUplift()">Calculate Uplift in Liters</button>
+    <label for="densityUplift">Daily density (kg/L):</label>
+    <input type="text" id="densityUplift" placeholder="Enter density (e.g., 0.8 or 0,8)" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]+" onkeydown="handleEnter(event, 'upliftBtn')">
 
-  <div id="resultUplift"></div>
+    <button id="upliftBtn" type="button" onclick="calculateUplift()">Calculate Uplift in Liters</button>
+
+    <div id="resultUplift"></div>
+  </form>
 
   <script>
-    function moveToNext(event, nextId) {
+    function handleEnter(event, nextId) {
       if (event.key === 'Enter') {
         event.preventDefault();
         const nextElement = document.getElementById(nextId);
@@ -118,7 +120,7 @@
       const resultDiv = document.getElementById('result');
 
       if (isNaN(pounds) || isNaN(density) || density <= 0) {
-        resultDiv.innerText = "Please enter valid values (numbers only, density>0).";
+        resultDiv.innerText = "Please enter valid values (numbers only, density > 0).";
         return;
       }
 
@@ -134,7 +136,7 @@
       const resultDiv = document.getElementById('resultInverse');
 
       if (isNaN(liters) || isNaN(density) || density <= 0) {
-        resultDiv.innerText = "Please enter valid values (numbers only, density>0).";
+        resultDiv.innerText = "Please enter valid values (numbers only, density > 0).";
         return;
       }
 
@@ -151,7 +153,7 @@
       const resultDiv = document.getElementById('resultUplift');
 
       if (isNaN(remaining) || isNaN(final) || isNaN(density) || density <= 0 || final <= remaining) {
-        resultDiv.innerText = "Please enter valid values (numbers only, final quantity>remaining quantity, density>0).";
+        resultDiv.innerText = "Please enter valid values (numbers only, final quantity > remaining quantity, density > 0).";
         return;
       }
 
