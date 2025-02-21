@@ -30,7 +30,7 @@
       -webkit-appearance: none;
       margin: 0;
     }
-    button, input[type="submit"] {
+    button {
       padding: 10px;
       background-color: #007BFF;
       color: white;
@@ -38,7 +38,7 @@
       border-radius: 5px;
       cursor: pointer;
     }
-    button:hover, input[type="submit"]:hover {
+    button:hover {
       background-color: #0056b3;
     }
     #result, #resultInverse, #resultUplift {
@@ -57,50 +57,59 @@
 <body>
   <h1>Fuel Converter</h1>
   
-  <form onsubmit="convert(); return false;">
-    <h2>From lb to l</h2>
-    <label for="pounds">Quantity in pounds:</label>
-    <input type="number" id="pounds" placeholder="Enter quantity in lb">
+  <h2>From lb to l</h2>
+  <label for="pounds">Quantity in pounds:</label>
+  <input type="number" id="pounds" placeholder="Enter quantity in lb" onkeydown="handleKey(event, 'density')">
 
-    <label for="density">Daily density (kg/L):</label>
-    <input type="text" id="density" placeholder="Enter density (e.g., 0.8 or 0,8)">
+  <label for="density">Daily density (kg/L):</label>
+  <input type="text" id="density" placeholder="Enter density (e.g., 0.8 or 0,8)" onkeydown="handleKey(event, 'convertBtn')">
 
-    <input type="submit" value="Convert to Liters">
-    <div id="result"></div>
-  </form>
+  <button id="convertBtn" onclick="convert()">Convert to Liters</button>
 
-  <hr>
-
-  <form onsubmit="convertInverse(); return false;">
-    <h2>Liters to Pounds</h2>
-    <label for="liters">Quantity in liters:</label>
-    <input type="number" id="liters" placeholder="Enter quantity in liters">
-
-    <label for="densityInverse">Daily density (kg/L):</label>
-    <input type="text" id="densityInverse" placeholder="Enter density (e.g., 0.8 or 0,8)">
-
-    <input type="submit" value="Convert to lb">
-    <div id="resultInverse"></div>
-  </form>
+  <div id="result"></div>
 
   <hr>
 
-  <form onsubmit="calculateUplift(); return false;">
-    <h2>Uplift</h2>
-    <label for="remaining">Remaining Quantity (lb):</label>
-    <input type="number" id="remaining" placeholder="Enter remaining quantity in lb">
+  <h2>Liters to Pounds</h2>
+  <label for="liters">Quantity in liters:</label>
+  <input type="number" id="liters" placeholder="Enter quantity in liters" onkeydown="handleKey(event, 'densityInverse')">
 
-    <label for="final">Final Quantity (lb):</label>
-    <input type="number" id="final" placeholder="Enter final quantity in lb">
+  <label for="densityInverse">Daily density (kg/L):</label>
+  <input type="text" id="densityInverse" placeholder="Enter density (e.g., 0.8 or 0,8)" onkeydown="handleKey(event, 'convertInverseBtn')">
 
-    <label for="densityUplift">Daily density (kg/L):</label>
-    <input type="text" id="densityUplift" placeholder="Enter density (e.g., 0.8 or 0,8)">
+  <button id="convertInverseBtn" onclick="convertInverse()">Convert to lb</button>
 
-    <input type="submit" value="Calculate Uplift in Liters">
-    <div id="resultUplift"></div>
-  </form>
+  <div id="resultInverse"></div>
+
+  <hr>
+
+  <h2>Uplift</h2>
+  <label for="remaining">Remaining Quantity (lb):</label>
+  <input type="number" id="remaining" placeholder="Enter remaining quantity in lb" onkeydown="handleKey(event, 'final')">
+
+  <label for="final">Final Quantity (lb):</label>
+  <input type="number" id="final" placeholder="Enter final quantity in lb" onkeydown="handleKey(event, 'densityUplift')">
+
+  <label for="densityUplift">Daily density (kg/L):</label>
+  <input type="text" id="densityUplift" placeholder="Enter density (e.g., 0.8 or 0,8)" onkeydown="handleKey(event, 'upliftBtn')">
+
+  <button id="upliftBtn" onclick="calculateUplift()">Calculate Uplift in Liters</button>
+
+  <div id="resultUplift"></div>
 
   <script>
+    function handleKey(event, nextId) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        const nextElement = document.getElementById(nextId);
+        if (nextElement && nextElement.tagName === 'INPUT') {
+          nextElement.focus();
+        } else if (nextElement && nextElement.tagName === 'BUTTON') {
+          nextElement.click();
+        }
+      }
+    }
+
     function parseInput(value) {
       return parseFloat(value.replace(',', '.'));
     }
